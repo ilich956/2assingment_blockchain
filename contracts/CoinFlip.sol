@@ -20,14 +20,13 @@ contract CoinFlip {
 
     function flipCoin() external payable {
         require(msg.value == betAmount, "Incorrect bet amount");
-        require(block.timestamp - lastFlipTimestamp > 5 minutes, "Wait for at least 5 minutes between flips");
+        require(block.timestamp - lastFlipTimestamp > 5 minutes, "Wait ");
 
         lastFlipTimestamp = block.timestamp;
         lastFlipResult = getRandomResult();
         emit CoinFlipped(msg.sender, lastFlipResult, msg.value);
 
         if (lastFlipResult) {
-            // Player wins, transfer double the amount
             payable(msg.sender).transfer(msg.value * 2);
         }
     }
